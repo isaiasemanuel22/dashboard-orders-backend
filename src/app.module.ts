@@ -8,11 +8,11 @@ import { OrdersService } from './orders/services/orders/orders.service';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'us-cdbr-east-06.cleardb.net',
       port: 3306,
-      username: 'userordersapp',
-      password: 'Orders22899',
-      database: 'dashboard-orders',
+      username: 'b4b029101002b8',
+      password: 'a3da4e09',
+      database: 'heroku_210bd7de6abd62f',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
