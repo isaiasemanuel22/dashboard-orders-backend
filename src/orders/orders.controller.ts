@@ -23,10 +23,10 @@ export class OrdersController {
       .then((message) => {
         response.status(HttpStatus.CREATED).json(message);
       })
-      .catch(() => {
+      .catch((e) => {
         response
           .status(HttpStatus.FORBIDDEN)
-          .json({ mesagge: 'error en la creacion del mensaje' });
+          .json({ mesagge: 'error en la creacion del mensaje' , status:e});
       });
   }
 
