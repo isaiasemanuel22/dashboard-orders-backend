@@ -10,7 +10,7 @@ import { ClientsService } from './services/clients.service';
 import { ProductsController } from './controllers/products.controller';
 import { ProductsService } from './services/products.service';
 import { MysqlDataSource } from '../data-source';
-const envFilePath: string = getEnvPath(`${__dirname }/envi`);
+const envFilePath: string = getEnvPath(`${__dirname }../../envi`);
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
