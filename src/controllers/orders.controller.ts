@@ -9,8 +9,8 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order-dto';
-import { OrdersService } from './services/orders/orders.service';
+import { CreateOrderDto } from '../models/dtos/create-order-dto';
+import { OrdersService } from '../services/orders.service';
 
 @Controller()
 export class OrdersController {
@@ -20,7 +20,7 @@ export class OrdersController {
   @Post()
   create(@Body() createOrderDto: CreateOrderDto, @Res() response) {
     this.orderService
-      .createOrder(createOrderDto)
+      .add(createOrderDto)
       .then((message) => {
         response.status(HttpStatus.CREATED).json(message);
       })
@@ -52,7 +52,7 @@ export class OrdersController {
     @Param('id') idOrder,
   ) {
     this.orderService
-      .updateOrder(idOrder, updateOrderDto)
+      .update(idOrder, updateOrderDto)
       .then((newOrder) => {
         response.status(HttpStatus.OK).json(newOrder);
       })
@@ -66,7 +66,7 @@ export class OrdersController {
   @Delete()
   detele(@Res() response, @Param('id') idOrder) {
     this.orderService
-      .deleteOrder(idOrder)
+      .delete(idOrder)
       .then(() => {
         response
           .status(HttpStatus.OK)
