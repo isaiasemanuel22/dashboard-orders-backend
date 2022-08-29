@@ -13,6 +13,10 @@ import { MysqlDataSource } from '../data-source';
 const envFilePath: string = getEnvPath(`${__dirname }../../environments`);
 
 Logger.log('environment file' + envFilePath);
+Logger.log(process.env.DB_HOST);
+Logger.log(process.env.DB_USERNAME);
+Logger.log(process.env.DB_PASS);
+Logger.log(process.env.DB_NAME);
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
