@@ -31,6 +31,15 @@ export class Order {
   @Column({ nullable: true })
   description: string;
 
-  @Column({default:'toDo'})
+  @Column({default:Status.ToDo})
   status:Status;
+
+  @Column({default:false})
+  reserve:boolean;
+
+  @Column({default:0})
+  amountReserve:number;
+  
+  @Column({default:0})
+  cost:number;
 }

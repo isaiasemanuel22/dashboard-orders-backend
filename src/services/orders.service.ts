@@ -22,6 +22,9 @@ export class OrdersService implements OrdersServicesDao{
     newOrder.dateAdmission = instance.dateAdmission;
     newOrder.dateDelivery = instance.dateDelivery;
     newOrder.status = instance.status;
+    newOrder.reserve = instance.reserve;
+    newOrder.amountReserve = instance.amountReserve;
+    newOrder.cost = instance.cost;
 
     return this.orderRepository.save(newOrder);
   }
@@ -40,7 +43,9 @@ export class OrdersService implements OrdersServicesDao{
     orderUpdateNew.dateAdmission = instance.dateAdmission;
     orderUpdateNew.dateDelivery = instance.dateDelivery;
     orderUpdateNew.status = instance.status;
-
+    orderUpdateNew.reserve = instance.reserve;
+    orderUpdateNew.amountReserve = instance.amountReserve;
+    orderUpdateNew.cost = instance.cost;
     return this.orderRepository.save(orderUpdateNew);
   }
    async delete(id: number) {
