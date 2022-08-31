@@ -14,4 +14,7 @@ export class CreateOrderDto {
   dateAdmission: Date;
   dateDelivery?:Date;
   status?:Status;
+  reserve:boolean;
+  amountReserve?:number;
+  cost?: number;
 }

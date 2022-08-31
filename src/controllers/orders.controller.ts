@@ -12,7 +12,7 @@ import {
 import { CreateOrderDto } from '../models/dtos/create-order-dto';
 import { OrdersService } from '../services/orders.service';
 
-@Controller()
+@Controller('orders')
 export class OrdersController {
 
   constructor(private orderService: OrdersService) {}
