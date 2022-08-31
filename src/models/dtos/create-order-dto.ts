@@ -9,7 +9,7 @@ export class CreateOrderDto {
   id?: number;
   name?: string;
   client: string;
-  description?: string;
+  description: string;
   lastUpdate: Date;
   dateAdmission: Date;
   dateDelivery?:Date;
@@ -17,4 +17,5 @@ export class CreateOrderDto {
   reserve:boolean;
   amountReserve?:number;
   cost?: number;
+  numberOrder?:number;
 }

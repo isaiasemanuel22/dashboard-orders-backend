@@ -14,17 +14,7 @@ export class OrdersService implements OrdersServicesDao{
 
 
   async add(instance: CreateOrderDto) {
-    const newOrder = new Order();
-    newOrder.name = instance.name;
-    newOrder.description = instance.description;
-    newOrder.client = instance.client;
-    newOrder.lastUpdate = instance.lastUpdate;
-    newOrder.dateAdmission = instance.dateAdmission;
-    newOrder.dateDelivery = instance.dateDelivery;
-    newOrder.status = instance.status;
-    newOrder.reserve = instance.reserve;
-    newOrder.amountReserve = instance.amountReserve;
-    newOrder.cost = instance.cost;
+    const newOrder = {...instance} as Order;
 
     return this.orderRepository.save(newOrder);
   }
@@ -46,13 +36,19 @@ export class OrdersService implements OrdersServicesDao{
     orderUpdateNew.reserve = instance.reserve;
     orderUpdateNew.amountReserve = instance.amountReserve;
     orderUpdateNew.cost = instance.cost;
+    
     return this.orderRepository.save(orderUpdateNew);
   }
    async delete(id: number) {
     return this.orderRepository.delete(id);
   }
-  getOne(_id: number): CreateOrderDto {
-    throw new Error('Method not implemented.');
+
+  async getOne(idOrder: number) {
+    return this.orderRepository.findOne({where:{id: idOrder}});
   }
 
+
+  async getMaxOrder(){
+  return this.orderRepository.createQueryBuilder("order").select("MAX(order.numberOrder)", "max").getRawOne();
+  }
 }

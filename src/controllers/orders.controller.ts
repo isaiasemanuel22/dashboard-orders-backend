@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpStatus,
+  Logger,
   Param,
   Post,
   Put,
@@ -15,21 +16,31 @@ import { OrdersService } from '../services/orders.service';
 @Controller('orders')
 export class OrdersController {
 
-  constructor(private orderService: OrdersService) {}
+  constructor(private orderService: OrdersService) { }
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto, @Res() response) {
-    this.orderService
-      .add(createOrderDto)
-      .then((message) => {
-        response.status(HttpStatus.CREATED).json(message);
-      })
-      .catch((e) => {
-        response
-          .status(HttpStatus.FORBIDDEN)
-          .json({ mesagge: 'error en la creacion del mensaje' , status:e});
-      });
+
+    this.orderService.getMaxOrder().then((maxOrder) => {
+
+      Logger.log(maxOrder);
+      createOrderDto.numberOrder = maxOrder != null ? maxOrder.max + 1 : 1;
+
+      this.orderService
+        .add(createOrderDto)
+        .then((message) => {
+          response.status(HttpStatus.CREATED).json(message);
+        })
+        .catch((e) => {
+          response
+            .status(HttpStatus.FORBIDDEN)
+            .json({ mesagge: 'Error en la creacion de la orden', status: e });
+        });
+    }).catch(()=>{
+      response.status(HttpStatus.FORBIDDEN).json({ message:'No se pudo encontrar el numero de orden'});
+    })
   }
+
 
   @Get()
   getAll(@Res() response) {
@@ -41,7 +52,7 @@ export class OrdersController {
       .catch(() => {
         response
           .status(HttpStatus.FORBIDDEN)
-          .json({ message: 'Error en la obtencion de mensajes' });
+          .json({ message: 'Error en la obtencion de Ordenes' });
       });
   }
 
@@ -77,5 +88,16 @@ export class OrdersController {
           .status(HttpStatus.FORBIDDEN)
           .json({ message: 'Error al eliminar la orden' });
       });
+  }
+
+
+
+  @Get('max-oder')
+  getMaxOrder(@Res() response) {
+    this.orderService.getMaxOrder().then((IdOrder) => {
+      response.status(HttpStatus.OK).json({ idOrder: IdOrder });
+    }).catch((e) => {
+      response.status(HttpStatus.FORBIDDEN).json({ message: 'Error al obtener el numero de orden' });
+    })
   }
 }
