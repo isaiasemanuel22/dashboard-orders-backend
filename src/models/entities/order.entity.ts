@@ -10,11 +10,12 @@ export enum Status {
 
 @Entity()
 export class Order {
+
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  id?: number;
 
   @Column({ nullable: true })
-  name: string;
+  name?: string;
 
   @Column()
   lastUpdate: Date;
@@ -23,7 +24,7 @@ export class Order {
   dateAdmission: Date;
 
   @Column({ nullable: true})
-  dateDelivery:Date;
+  dateDelivery?:Date;
 
   @Column()
   client: string;
@@ -32,14 +33,17 @@ export class Order {
   description: string;
 
   @Column({default:Status.ToDo})
-  status:Status;
+  status?:Status;
 
   @Column({default:false})
   reserve:boolean;
 
   @Column({default:0})
-  amountReserve:number;
+  amountReserve?:number;
   
   @Column({default:0})
-  cost:number;
+  cost?:number;
+
+  @Column()
+  numberOrder?:number;
 }
